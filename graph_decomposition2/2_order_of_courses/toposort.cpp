@@ -1,3 +1,6 @@
+ // Topological Sort 
+//  Graph should be a DAG
+
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -38,7 +41,7 @@ vector<int> toposort(vector<vector<int> > adj) {
     Map.push_back(std::make_pair(i,0));
   }
   DFS(Visited,adj,adj.size(),Map);
-  sort(Map.begin(),Map.end(),SortBySecond);
+  sort(Map.begin(),Map.end(),SortBySecond);                // Just sort vertices in descending order of postNumber  
   for (int i=0;i<Map.size();i++){
     //std::cout<<Map[i].first+1<<", "<<Map[i].second<<"\n";
     order.push_back(Map[i].first);
@@ -57,6 +60,6 @@ int main() {
   }
   vector<int> order = toposort(adj);
   for (size_t i = 0; i < order.size(); i++) {
-    std::cout << order[i] + 1 << " ";
+    std::cout << order[i] + 1 << " ";                      // More than one linear ordering is possible
   }
 }
