@@ -1,3 +1,6 @@
+ // Strongly connected components in a directed graph
+//  Vertices in one scc are reachable from one-another 
+
 #include <algorithm>
 #include <iostream>
 #include <vector>
@@ -26,17 +29,17 @@ void Explore(vector<bool> &Visited, vector<vector<int> > &adj, int vertex, vecto
     if (Visited[neighbours[i]]!=true)
       Explore(Visited,adj,neighbours[i],Map,postNumber);
   }
-  Map[vertex].second=++postNumber;
+  Map[vertex].second=++postNumber;                           // Assigning post number to vertices 
 }
 
 int DFS(vector<bool> &Visited, vector<vector<int> > &adj, vector<vector<int> > &adjReverse, vector< pair <int,int>> &Map){
   int postNumber=0;
   for (int i=0;i<adj.size();i++){
     if(Visited[i]!=true){
-      Explore(Visited,adjReverse,i,Map,postNumber);
+      Explore(Visited,adjReverse,i,Map,postNumber);        // Run DFS on the reverse graph to find a sink scc in the original graph
     }
   }
-  sort(Map.begin(),Map.end(),SortBySecond);
+  sort(Map.begin(),Map.end(),SortBySecond);               // Vertex with highest postNumber is source in reverse and sink in original 
   for (size_t i = 0; i < adj.size(); i++)
     Visited[i]=false;
   int SCC=0;  
@@ -56,7 +59,7 @@ int number_of_strongly_connected_components(vector<vector<int> > &adj, vector<ve
     Visited.push_back(false);
     Map.push_back(std::make_pair(i,0));
   }  
-  return DFS(Visited,adj,adjReverse,Map);
+  return DFS(Visited,adj,adjReverse,Map);         
 }
 
 int main() {
@@ -69,7 +72,7 @@ int main() {
     int x, y;
     std::cin >> x >> y;
     adj[x - 1].push_back(y - 1);
-    adjReverse[y-1].push_back(x-1);
+    adjReverse[y-1].push_back(x-1);                // Reverse Graph
   }
   
   std::cout << number_of_strongly_connected_components(adj,adjReverse);
