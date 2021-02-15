@@ -1,3 +1,6 @@
+ // Connected components in an undirected graph 
+//  Number of islands into which the graph can be divided
+
 #include <iostream>
 #include <vector>
 
@@ -14,11 +17,12 @@ void Explore(vector<vector<int> > &adj, int x, vector<bool> &Visited){
 }
 
 int number_of_components(vector<vector<int> > &adj, vector<bool> &Visited) {
+  // Normal DFS
   int res = 0;
   for (int i=0;i<adj.size();i++){
     if(Visited[i]==false){
       res++;
-      Explore(adj,i,Visited);
+      Explore(adj,i,Visited);    // Every exploration covers one island/component
     }
   }
   return res;
