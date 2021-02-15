@@ -1,3 +1,5 @@
+// Check for cycle in a directed graph 
+
 #include<iostream>
 #include<vector>
 #include<unordered_set>
@@ -8,7 +10,7 @@ using std::unordered_set;
 
 void Explore(vector<bool> &Visited, vector<vector<int> > &adj, int vertex, bool &flag, unordered_set <int> &track){
   Visited[vertex]=true;
-  track.insert(vertex);
+  track.insert(vertex);             // Maintaining a set of vertices visited during a routine, if we visit any vertex twice, presence of cycle is confirmed 
   vector<int> neighbours=adj[vertex];
   for(int i=0;i<neighbours.size();i++){
     if (Visited[neighbours[i]]!=true)
@@ -16,14 +18,14 @@ void Explore(vector<bool> &Visited, vector<vector<int> > &adj, int vertex, bool 
     else if (track.find(neighbours[i])!=track.end())  
       flag=true;
   }
-  track.erase(track.find(vertex));
+  track.erase(track.find(vertex)); // Remove the vertex after it's exploration is done
 }
 
 int acyclic(vector<bool> &Visited, vector<vector<int> > &adj, int n){
   bool flag=false;
   for (int i=0;i<n;i++){
     if(Visited[i]!=true){
-      unordered_set <int> track;
+      unordered_set <int> track;        // Unordered set for O(1) find  
       Explore(Visited,adj,i,flag,track);
       if (flag)
         return 1;
