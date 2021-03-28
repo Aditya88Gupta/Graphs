@@ -8,12 +8,12 @@ using std::queue;
 using std::pair;
 using std::priority_queue;
 
-typedef pair<long long,int> pi;
+typedef pair<int,long long> pi;
 
 struct Comp { 
     constexpr bool operator()( 
-        pair<int, int> const& a, 
-        pair<int, int> const& b) 
+        pair<int, long long> const& a, 
+        pair<int, long long> const& b) 
         const noexcept 
     { 
         return a.second > b.second; 
